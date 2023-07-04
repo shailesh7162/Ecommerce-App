@@ -1,6 +1,7 @@
 package com.example.ecommerceapp.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView,headerImg;
     String image,imgPath;
     String imgName;
+    int cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawer, toolbar, R.string.open, R.string.close);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.black));
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         addfragment(new AddProductFragment());
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                  CropImage.activity()
                          .setGuidelines(CropImageView.Guidelines.ON)
                          .start(MainActivity.this);
+                 cnt=1;
              }
          });
         imgName=imgName+new Random().nextInt(10000)+".jpg";
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                             CropImage.activity()
                                     .setGuidelines(CropImageView.Guidelines.ON)
                                     .start(MainActivity.this);
+                            cnt=2;
                         }
                     });
                     add_product_btn.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this,LoginActivity.class));
                     finish();
                 }
-                drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
@@ -200,6 +204,31 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame, fragment);
         transaction.commit();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+
+                Uri resultUri = result.getUri();
+
+                if(cnt==1)
+                {
+                    headerImg.setImageURI(resultUri);
+                }
+                else if(cnt==2)
+                {
+                    imageView.setImageURI(resultUri);
+                }
+
+            }
+
+            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
     private void loadImageFromStorage(String path) {
@@ -227,7 +256,6 @@ public class MainActivity extends AppCompatActivity {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
             e.printStackTrace();
