@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,8 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecommerceapp.Fragment.AddProductFragment;
-import com.example.ecommerceapp.Fragment.ShowAllProductFragment;
+import com.example.ecommerceapp.Fragment.Show_all_product;
+import com.example.ecommerceapp.Fragment.home_fragment;
 import com.example.ecommerceapp.Modals.addProductData;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.Retro_Instance_Class;
@@ -85,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.black));
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        addfragment(new AddProductFragment());
+        addfragment(new home_fragment());
         
-        String name = preferences.getString("name", "User");
+        String name = preferences.getString("name", "");
         View headerView = navigation.getHeaderView(0);
         drawer_name = (TextView) headerView.findViewById(R.id.drawer_name);
         drawer_name.setText("" + name);
@@ -113,7 +112,17 @@ public class MainActivity extends AppCompatActivity {
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId()==R.id.nav_add_product)
+                if (item.getItemId()==R.id.home_menu)
+                {
+                    addfragment(new home_fragment());
+                    drawer.closeDrawer(Gravity.LEFT);
+                }if (item.getItemId()==R.id.logout)
+                {
+                    editor.putBoolean("logged_in", false);
+                    editor.commit();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }if (item.getItemId()==R.id.add_product)
                 {
                     Dialog dialog=new Dialog(MainActivity.this);
                     dialog.setContentView(R.layout.dailog_main);
@@ -179,21 +188,11 @@ public class MainActivity extends AppCompatActivity {
                     });
                     dialog.show();
 
-                }if (item.getItemId()==R.id.nav_show_product)
+                }if (item.getItemId()==R.id.show_all)
                 {
-                    addfragment(new ShowAllProductFragment());
-                    drawer.closeDrawer(Gravity.LEFT);
 
-                }if (item.getItemId()==R.id.nav_show_all_product)
-                {
-                    addfragment(new ShowAllProductFragment());
+                    addfragment(new Show_all_product());
                     drawer.closeDrawer(Gravity.LEFT);
-                }if (item.getItemId()==R.id.menu_logout)
-                {
-                    editor.putBoolean("logged_in",false);
-                    editor.commit();
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                    finish();
                 }
                 return true;
             }

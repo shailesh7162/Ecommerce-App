@@ -1,8 +1,10 @@
 package com.example.ecommerceapp;
 
+import com.example.ecommerceapp.Modals.AlluserProduct;
 import com.example.ecommerceapp.Modals.DeleteData;
 import com.example.ecommerceapp.Modals.LoginData;
 import com.example.ecommerceapp.Modals.RegisterData;
+import com.example.ecommerceapp.Modals.UserProduct;
 import com.example.ecommerceapp.Modals.addProductData;
 import com.example.ecommerceapp.Modals.viewProductData;
 
@@ -24,6 +26,14 @@ public interface RetrofitAPI
     @FormUrlEncoded
     @POST("addProduct.php")
     Call<addProductData> PRODUCT_USER_CALL(@Field("userid") int usrid, @Field("pname") String pname, @Field("pprize") String pprize, @Field("pdes") String pdes, @Field("productimage") String productimage);
+
+    @FormUrlEncoded
+    @POST("allproduct.php")
+    Call<AlluserProduct>ALLUSER_PRODUCT_CALL(@Field("userid") Integer id);
+
+    @FormUrlEncoded
+    @POST("userproduct.php")
+    Call<UserProduct>USER_PRODUCT_CALL(@Field("userid") Integer uid);
 
     @FormUrlEncoded
     @POST("viewProduct.php")

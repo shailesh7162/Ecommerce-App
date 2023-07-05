@@ -1,3 +1,4 @@
+
 package com.example.ecommerceapp.Modals;
 
 import com.google.gson.annotations.Expose;
@@ -5,7 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Product_get_model {
+
+public class UserProduct {
+
     @SerializedName("connection")
     @Expose
     private Integer connection;
@@ -14,7 +17,7 @@ public class Product_get_model {
     private Integer result;
     @SerializedName("productdata")
     @Expose
-    private List<ProductCategories> productdata;
+    private List<Productdatum> productdata;
 
     public Integer getConnection() {
         return connection;
@@ -32,17 +35,20 @@ public class Product_get_model {
         this.result = result;
     }
 
-    public List<ProductCategories> getProductdata() {
+    public List<Productdatum> getProductdata() {
         return productdata;
     }
 
-    public void setProductdata(List<ProductCategories> productdata) {
+    public void setProductdata(List<Productdatum> productdata) {
         this.productdata = productdata;
     }
+
+    @Override
+    public String toString() {
+        return "UserProduct{" +
+                "connection=" + connection +
+                ", result=" + result +
+                ", productdata=" + productdata +
+                '}';
+    }
 }
-
-
-
-
-
-
