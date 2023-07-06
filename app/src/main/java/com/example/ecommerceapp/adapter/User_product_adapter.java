@@ -23,13 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ecommerceapp.GetPosition;
+import com.example.ecommerceapp.Modals.DeleteData;
 import com.example.ecommerceapp.Modals.Productdatum;
 import com.example.ecommerceapp.R;
-import com.example.login_api.DataModels.DeletProduct;
-import com.example.login_api.DataModels.Productdatum;
-import com.example.login_api.DataModels.retro_class;
-import com.example.login_api.GetPosition;
-import com.example.login_api.R;
+import com.example.ecommerceapp.Retro_Instance_Class;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.List;
@@ -56,7 +53,7 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
     @NonNull
     @Override
     public Userholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_products,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.product_show_layout,parent,false);
         Userholder userholder=new Userholder(view);
         return userholder;
     }
@@ -66,7 +63,7 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
         holder.pname.setText(""+productdata.get(position).getPname());
         holder.pdec.setText(""+productdata.get(position).getDescription());
         holder.price.setText(""+productdata.get(position).getPrice());
-        Glide.with(context).load("https://bhavadipandroid.000webhostapp.com/android/"+productdata.get(position).getImage()).into(holder.imageView);
+        Glide.with(context).load("https://ecommrecexyz.000webhostapp.com/mydata"+productdata.get(position).getImage()).into(holder.imageView);
         Log.d("GGG", "onBindViewHolder: "+productdata.get(position).getImage());
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,10 +123,11 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
                             builder.setMessage("Are You Sure?");
                             builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    retro_class.callapi().DELET_PRODUCT_CALL(Integer.valueOf(productdata.get(holder.getAdapterPosition()).getId())).enqueue(new Callback<DeletProduct>() {
+                                public void onClick(DialogInterface dialogInterface, int i)
+                                {
+                                    Retro_Instance_Class.CallApi().DELETE_MODEL_CALL(Integer.valueOf(productdata.get(holder.getAdapterPosition()).getId())).enqueue(new Callback<DeleteData>() {
                                         @Override
-                                        public void onResponse(Call<DeletProduct> call, Response<DeletProduct> response) {
+                                        public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
                                             if (response.body().getConnection()==1)
                                             {
                                                 if (response.body().getResult()==1)
@@ -145,9 +143,8 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
                                                 Toast.makeText(context, "Somthin Went Wrong", Toast.LENGTH_LONG).show();
                                             }
                                         }
-
                                         @Override
-                                        public void onFailure(Call<DeletProduct> call, Throwable t) {
+                                        public void onFailure(Call<DeleteData> call, Throwable t) {
 
                                         }
                                     });

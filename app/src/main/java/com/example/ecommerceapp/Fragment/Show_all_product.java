@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class Show_all_product extends Fragment {
     RecyclerView recyclerView;
-    List<Object> getAllproduct=new ArrayList<>();
+    List<Productdatum> getAllproduct=new ArrayList<>();
     SwipeRefreshLayout refreshLayout;
 
     @Override

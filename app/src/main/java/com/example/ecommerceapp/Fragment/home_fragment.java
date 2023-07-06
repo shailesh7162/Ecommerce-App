@@ -21,9 +21,11 @@ import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.Retro_Instance_Class;
 import com.example.ecommerceapp.adapter.User_product_adapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,10 +34,10 @@ import retrofit2.Response;
 
 public class home_fragment extends Fragment {
 
-    List<Object> productdata=new ArrayList<>();
+    List<Productdatum> productdata=new ArrayList<>();
     RecyclerView recyclerView;
     SwipeRefreshLayout refreshLayout;
-    public static SharedPreferences preferences;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class home_fragment extends Fragment {
         recyclerView=view.findViewById(R.id.Show_user_recycler);
         refreshLayout=view.findViewById(R.id.Home_refresh);
         int uid;
+        Preferences preferences = null;
         uid= preferences.getInt("uid",0);
         Log.d("GGG", "onCreateView: "+uid);
 

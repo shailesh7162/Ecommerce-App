@@ -14,7 +14,7 @@ public class viewProductData {
     private Integer result;
     @SerializedName("productdata")
     @Expose
-    private List<ProductCategories> productdata;
+    private List<Productdatum> productdata;
 
     public Integer getConnection() {
         return connection;
@@ -32,11 +32,11 @@ public class viewProductData {
         this.result = result;
     }
 
-    public List<ProductCategories> getProductdata() {
+    public List<Productdatum> getProductdata() {
         return productdata;
     }
 
-    public void setProductdata(List<ProductCategories> productdata) {
+    public void setProductdata(List<Productdatum> productdata) {
         this.productdata = productdata;
     }
 }
