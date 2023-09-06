@@ -3,7 +3,7 @@
 
     android:layout_width="match_parent"
     android:layout_margin="@dimen/_5sdp"
-    android:background="@color/blue"
+    android:background="#09DFA2"
     android:id="@+id/Reletiv_show"
     android:layout_height="@dimen/_150sdp">
 <TextView
@@ -13,29 +13,34 @@
     android:textStyle="bold"
     android:id="@+id/product_show_name"
     android:padding="@dimen/_5sdp"
-    android:text="abcd"/>
+    android:text="name"
+    android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/product_show_desc"
         android:textSize="@dimen/_20sdp"
-        android:text="@string/app_name"
+        android:text="price"
         android:textStyle="bold"
         android:padding="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_below="@id/product_show_name"/>
+        android:layout_below="@id/product_show_name"
+        android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/product_show_desc"
-        android:textSize="@dimen/_25sdp"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
         android:padding="@dimen/_5sdp"
-        android:text="@string/Register"
-        android:id="@+id/product_show_price"/>
+        android:text="dec"
+        android:id="@+id/product_show_price"
+        android:textColor="@color/black"/>
+
     <ImageView
+        android:id="@+id/product_show_image"
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_90sdp"
-       android:id="@+id/product_show_image"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_30sdp" />
 </RelativeLayout>

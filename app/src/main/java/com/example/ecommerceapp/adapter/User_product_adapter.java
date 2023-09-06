@@ -29,6 +29,7 @@ import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.Retro_Instance_Class;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.security.AccessControlContext;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,14 +47,14 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
     GetPosition getPosition;
 
     public User_product_adapter(Context context, List<Productdatum> productdata, GetPosition getPosition) {
-        this.productdata=productdata;
         this.context=context;
+        this.productdata=productdata;
         this.getPosition=getPosition;
     }
     @NonNull
     @Override
     public Userholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.product_show_layout,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.product_show_item,parent,false);
         Userholder userholder=new Userholder(view);
         return userholder;
     }

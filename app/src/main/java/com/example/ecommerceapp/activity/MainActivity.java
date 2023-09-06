@@ -175,7 +175,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     dialog.show();
-                }if (item.getItemId()==R.id.menu_logout)
+                }
+                if(item.getItemId()==R.id.nav_show_product)
+                {
+                    Intent intent=new Intent(MainActivity.this, Product_showActivity.class);
+                    startActivity(intent);
+                }
+                if (item.getItemId()==R.id.menu_logout)
                 {
                     editor.putBoolean("logged_in", false);
                     editor.commit();
